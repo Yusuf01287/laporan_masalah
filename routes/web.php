@@ -12,3 +12,7 @@ Route::get('/', function () {
 });
 
 Route::get('/laporan', [LaporanController::class, 'index']);
+
+Route::resource('laporan', LaporanController::class)->parameters([
+    'laporan' => 'laporan'
+]);

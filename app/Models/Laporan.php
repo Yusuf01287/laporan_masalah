@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Laporan;
 
-class Mahasiswa extends Model
+class Laporan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama','nim','email'];
+    protected $fillable = [
+        'judul', 'deskripsi', 'nomor_laporan', 'status', 'mahasiswa_id'
+    ];
 
-    public function laporans()
+    public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(\App\Models\Mahasiswa::class);
     }
 }
