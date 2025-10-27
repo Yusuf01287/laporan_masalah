@@ -16,5 +16,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::middleware(['auth'])->group(function(){
+    Route::resource('laporan', \App\Http\Controllers\LaporanController::class);
+    Route::resource('mahasiswa', \App\Http\Controllers\MahasiswaController::class);
+    Route::resource('dosen', \App\Http\Controllers\DosenController::class);
+});
 require __DIR__.'/auth.php';
