@@ -26,3 +26,15 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('dosen', \App\Http\Controllers\DosenController::class);
 });
 require __DIR__.'/auth.php';
+
+// Hanya mahasiswa yang bisa membuat laporan
+Route::middleware(['auth','role:mahasiswa'])->group(function(){
+    Route::resource('laporan', \App\Http\Controllers\LaporanController::class);
+});
+
+// Hanya DPA (admin) yang bisa mengelola mahasiswa, dosen, dan melihat semua laporan
+Route::middleware(['auth','role:dpa'])->group(function(){
+    Route::resource('mahasiswa', \App\Http\Controllers\MahasiswaController::class);
+    Route::resource('dosen', \App\Http\Controllers\DosenController::class);
+    Route::get('/admin/laporan', [\App\Http\Controllers\LaporanController::class,'index'])->name('admin.laporan.index');
+});
