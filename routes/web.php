@@ -38,3 +38,13 @@ Route::middleware(['auth','role:dpa'])->group(function(){
     Route::resource('dosen', \App\Http\Controllers\DosenController::class);
     Route::get('/admin/laporan', [\App\Http\Controllers\LaporanController::class,'index'])->name('admin.laporan.index');
 });
+
+Route::get('/dashboard', function () {
+    $user = auth()->user();
+    if ($user->role === 'dpa') {
+        $laporans = \App\Models\Laporan::latest()->paginate(10);
+    } else {
+        $laporans = \App\Models\Laporan::where('mahasiswa_id', $user->id)->latest()->paginate(10);
+    }
+    return view('dashboard', compact('laporans','user'));
+})->middleware(['auth'])->name('dashboard');
