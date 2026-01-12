@@ -31,7 +31,8 @@
             $color = $laporan->status === 'selesai' ? 'green' : ($laporan->status === 'diproses' ? 'yellow' : 'red');
             $label = ucfirst($laporan->status);
           @endphp
-          <span class="px-2 py-1 rounded bg-{{ $color }}-100 text-{{ $color }}-800 border border-{{ $color }}-200 text-sm">{{ $label }}</span>
+          <span class="px-2 py-1 rounded bg-{{ $color }}-100 text-{{ $color }}-800 border border-{{ $color }}-200 text-sm">{{ $label }}
+          </span>
         </td>
         <td class="px-4 py-2 border">
         <a href="{{ route('laporan.show', $laporan) }}" class="text-blue-700 hover:underline">Lihat</a>
