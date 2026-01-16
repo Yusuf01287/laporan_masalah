@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use App\Models\Mahasiswa;
+use App\Models\StatusHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -73,6 +74,11 @@ class LaporanController extends Controller
         $laporan->update($validated);
 
         return redirect()->route('laporan.show', $laporan)->with('success','Laporan berhasil diperbarui.');
+        StatusHistory::create([
+            'laporan_id' => $laporan->id,
+            'status' => $validated['status'],
+        ]);
+        return redirect()->back()->with('success','Status laporan berhasil diperbarui');
     }
 
     public function destroy(Laporan $laporan)
@@ -81,3 +87,4 @@ class LaporanController extends Controller
         return redirect()->route('laporan.index')->with('success','Laporan berhasil dihapus.');
     }
 }
+
